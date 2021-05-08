@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.textView.setOnClickListener {
             GlobalScope.launch {
-                val res = CityWeatherApi.get("杭州")
+                val res = CityWeatherApi.get("广州")
                 println(res)
             }
         }
