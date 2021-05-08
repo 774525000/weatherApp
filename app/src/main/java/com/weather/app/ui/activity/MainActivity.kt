@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.weather.app.databinding.ActivityMainBinding
 import com.weather.app.logic.network.api.CityWeatherApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -15,10 +16,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textView.setOnClickListener {
-            GlobalScope.launch {
+            GlobalScope.launch(Dispatchers.Main) {
                 val res = CityWeatherApi.get("广州")
-                println(res)
+                println(1)
             }
+            println(2)
         }
     }
 }
