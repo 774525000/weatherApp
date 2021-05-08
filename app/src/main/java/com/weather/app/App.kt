@@ -10,7 +10,7 @@ class App : Application() {
         lateinit var context: Context
 
         const val baseUrl = "https://v0.yiketianqi.com/api/"
-        const val version = "v61"
+        const val version = "v9"
         const val appId = "85277939"
         const val appSecret = "oZtko9LK"
     }
