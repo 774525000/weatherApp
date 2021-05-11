@@ -6,7 +6,7 @@ import java.util.*
 
 data class CityWeatherModel(
     @SerializedName("update_time") val updateTime: String,
-    @SerializedName("cityid") val cityId: String,
+    @SerializedName("cityid") val cityId: String?,
     val city: String,
     val country: String,
     val data: List<Weather>
@@ -16,9 +16,9 @@ data class CityWeatherModel(
         val day: String,
         val wea: String,
         val week: String,
-        val tem: Float,
-        @SerializedName("tem2") val temMin: Float,
-        @SerializedName("tem1") val temMax: Float,
+        val tem: Int,
+        @SerializedName("tem2") val temMin: Int,
+        @SerializedName("tem1") val temMax: Int,
         @SerializedName("air_tips") val airTips: String
     )
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">weatherApp</string>
+    <string name="weather_txt">暂无数据</string>
+    <string name="app_title">全国天气查询</string>
 </resources>
