@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.button.setOnClickListener {
+            binding.textView.text = "查询中..."
             model.getCityWeather(binding.cityInput.text.toString())
         }
     }
