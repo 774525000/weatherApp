@@ -1,7 +1,6 @@
 package com.weather.app.ui.viewModel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import com.weather.app.logic.network.api.CityWeatherApi
