@@ -7,7 +7,7 @@ import com.weather.app.databinding.ActivityMainBinding
 import com.weather.app.ui.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val model: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
