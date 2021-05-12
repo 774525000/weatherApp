@@ -7,6 +7,7 @@ import com.weather.app.databinding.ActivityMainBinding
 import com.weather.app.ui.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
     private val model: MainViewModel by viewModels()
 
