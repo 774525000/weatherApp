@@ -16,7 +16,11 @@ object CityWeatherApi {
         delay(500)
         val result = try {
             val res = api.get(city).await()
-            Result.success(res)
+            if (res.cityId != null) {
+                Result.success(res)
+            } else {
+                Result.failure<CityWeatherModel>(RuntimeException("error"))
+            }
         } catch (e: Exception) {
             Result.failure<CityWeatherModel>(e)
         }
