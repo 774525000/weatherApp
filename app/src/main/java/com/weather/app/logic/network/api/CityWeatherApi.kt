@@ -7,7 +7,7 @@ import com.weather.app.logic.network.service.CityWeatherService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import retrofit2.await
-import java.lang.Exception
+import kotlin.Exception
 
 object CityWeatherApi {
     private val api = ApiUtil.create<CityWeatherService>()
