@@ -10,6 +10,7 @@ import retrofit2.await
 import kotlin.Exception
 
 object CityWeatherApi {
+
     private val api = ApiUtil.create<CityWeatherService>()
 
     fun get(city: String) = liveData(Dispatchers.IO) {
