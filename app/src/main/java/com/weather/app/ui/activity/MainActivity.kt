@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model.weatherModel.observe(this) { result ->
+        /*model.weatherModel.observe(this) { result ->
             result.getOrNull()?.run {
                 if (data.isNotEmpty()) {
                     val sb = StringBuilder().apply {
@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             binding.textView.text = "查询中..."
             model.changeCity(binding.cityInput.text.toString())
-        }
+        }*/
+
+        binding.mapView.onCreate(savedInstanceState)
+        binding.mapView.map
     }
 }
