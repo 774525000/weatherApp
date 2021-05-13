@@ -1,13 +1,11 @@
 package com.weather.app.ui.activity
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.LocationListener
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,15 +21,52 @@ class MainActivity : AppCompatActivity() {
     private val model: MainViewModel by viewModels()
     private lateinit var manager: LocationManager
     private lateinit var geocodeSearch: GeocodeSearch
+    private lateinit var listener: LocationListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        manager = getSystemService(LOCATION_SERVICE) as LocationManager
+        /**  初始化数据 ✌️✌️✌️ **/
+        initData()
+
+        /**  请求地理位置 ✌️✌️✌️**/
         requestLocationInfo()
 
+        /**  观察livedata ✌️✌️✌️**/
+        observeLiveData()
+
+        /**  绑定各种事件 ✌️✌️✌️**/
+        bindEventListener()
+
+        /**  通过经纬度获取位置信息 ✌️✌️✌️**/
+        listenLocationChange()
+    }
+
+    private fun initData() {
+        manager = getSystemService(LOCATION_SERVICE) as LocationManager
+        geocodeSearch = GeocodeSearch(this)
+    }
+
+    private fun listenLocationChange() {
+        geocodeSearch.setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener {
+            override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
+                if (p1 == 1000) {
+                    p0?.apply {
+                        binding.textView.text = regeocodeAddress.district
+                        manager.removeUpdates(listener)
+                    }
+                }
+            }
+
+            override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
+
+            }
+        })
+    }
+
+    private fun observeLiveData() {
         model.weatherModel.observe(this) { result ->
             result.getOrNull()?.run {
                 if (data.isNotEmpty()) {
@@ -46,37 +81,24 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        geocodeSearch = GeocodeSearch(this)
-
-        binding.button.setOnClickListener {
-//            binding.textView.text = "查询中..."
-//            model.changeCity(binding.cityInput.text.toString())
-        }
-
-
-        geocodeSearch.setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener {
-            override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
-                if (p1 == 1000) {
-                    p0?.apply {
-                        binding.textView.text = regeocodeAddress.district
-                    }
-                }
-            }
-
-            override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
-
-            }
-        })
     }
 
+    private fun bindEventListener() {
+        binding.button.setOnClickListener {
+            binding.textView.text = "查询中..."
+            model.changeCity(binding.cityInput.text.toString())
+        }
+    }
+
+    private fun checkPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) != PackageManager.PERMISSION_GRANTED
+    }
 
     private fun requestLocationInfo() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
+        if (checkPermission()) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -87,19 +109,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("MissingPermission")
     private fun handleLocationInfo() {
+        if (checkPermission())
+            return
 
-        val listener = LocationListener {
-            println("${it.longitude} ---- ${it.latitude}")
-
+        listener = LocationListener {
             val res = LatLonPoint(it.latitude, abs(it.longitude))
             val query = RegeocodeQuery(res, 200f, GeocodeSearch.AMAP)
             geocodeSearch.getFromLocationAsyn(query)
         }
 
-        val dis = 1000 * 60 * 1L
-        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, dis, 0f, listener)
+        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, listener)
     }
 
     override fun onRequestPermissionsResult(
