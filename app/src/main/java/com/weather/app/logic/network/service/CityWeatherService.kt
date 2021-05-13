@@ -8,6 +8,6 @@ import retrofit2.http.Query
 
 
 interface CityWeatherService {
-    @GET("?version=${App.version}&appid=${App.appId}&appsecret=${App.appSecret}")
+    @GET("?version=${App.seven}&appid=${App.appId}&appsecret=${App.appSecret}")
     fun get(@Query("city") city: String): Call<CityWeatherModel>
 }
