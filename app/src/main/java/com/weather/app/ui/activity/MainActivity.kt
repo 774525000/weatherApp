@@ -113,7 +113,7 @@ class MainActivity : AppActivity() {
             return
 
         listener = LocationListener {
-            val res = LatLonPoint(it.latitude, abs(it.longitude))
+            val res = LatLonPoint(abs(it.latitude), abs(it.longitude))
             val query = RegeocodeQuery(res, 200f, GeocodeSearch.AMAP)
             geocodeSearch.getFromLocationAsyn(query)
         }
