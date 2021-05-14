@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="#00BCD4"
     android:fitsSystemWindows="true"
-    android:clipToPadding="false"
     tools:context=".ui.activity.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
