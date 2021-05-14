@@ -6,6 +6,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -54,10 +55,12 @@ class MainActivity : AppCompatActivity() {
             override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
                 if (p1 == 1000) {
                     p0?.apply {
-                        binding.textView.text = regeocodeAddress.district
-                        manager.removeUpdates(listener)
+                        val len = regeocodeAddress.district.length
+                        val city = regeocodeAddress.district.substring(0, len - 1)
+                        model.changeCity(city)
                     }
                 }
+                manager.removeUpdates(listener)
             }
 
             override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
@@ -71,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             result.getOrNull()?.run {
                 if (data.isNotEmpty()) {
                     val sb = StringBuilder().apply {
-                        append("城市：${city} \n")
+                        append("位置：${city} \n")
                         append("当前温度：${data[0].tem}℃ \n")
                         data.forEach {
                             append("${it.date}：${it.wea}。温度：${it.temMin}℃~${it.temMax}℃ \n")
@@ -84,10 +87,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindEventListener() {
-        binding.button.setOnClickListener {
-            binding.textView.text = "查询中..."
-            model.changeCity(binding.cityInput.text.toString())
-        }
+
     }
 
     private fun checkPermission(): Boolean {

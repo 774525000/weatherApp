@@ -14,7 +14,6 @@ object CityWeatherApi {
     private val api = ApiUtil.create<CityWeatherService>()
 
     fun get(city: String) = liveData(Dispatchers.IO) {
-        delay(500)
         val result = try {
             val res = api.get(city).await()
             if (res.cityId != null) {
