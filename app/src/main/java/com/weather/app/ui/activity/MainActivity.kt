@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /**  初始化数据 ✌️✌️✌️ **/
+        /**  初始化数据 ✌️✌️✌️**/
         initData()
 
         /**  请求地理位置 ✌️✌️✌️**/
