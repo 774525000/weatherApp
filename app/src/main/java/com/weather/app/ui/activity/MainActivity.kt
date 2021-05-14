@@ -2,19 +2,12 @@ package com.weather.app.ui.activity
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.geocoder.*
 import com.weather.app.databinding.ActivityMainBinding
