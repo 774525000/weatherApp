@@ -24,8 +24,8 @@ import kotlin.math.abs
 
 class MainActivity : AppActivity() {
 
-    private lateinit var binding: ActivityMainBinding
     private val model: MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
     private lateinit var manager: LocationManager
     private lateinit var geocodeSearch: GeocodeSearch
     private lateinit var listener: LocationListener
